@@ -24,94 +24,91 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:  MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
+class MyHomePage extends StatelessWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset('assets/maz1.jpg'),
-
-            const Text(
-              'You have pushed the button this many times:',
+        appBar: AppBar(title:Text("Product Listing")),
+        body: ListView(
+          shrinkWrap: true, padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
+          children: <Widget> [
+            ProductBox(
+                name: "iPhone",
+                description: "iPhone is the stylist phone ever",
+                price: 1000,
+                image: "iphone.png"
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            ProductBox(
+                name: "Pixel",
+                description: "Pixel is the most featureful phone ever",
+                price: 800,
+                image: "pixel.png"
+            ),
+            ProductBox(
+                name: "Laptop",
+                description: "Laptop is most productive development tool",
+                price: 2000,
+                image: "laptop.png"
+            ),
+            ProductBox(
+                name: "Tablet",
+                description: "Tablet is the most useful device ever for meeting",
+                price: 1500,
+                image: "tablet.png"
+            ),
+            ProductBox(
+                name: "Pendrive",
+                description: "Pendrive is useful storage medium",
+                price: 100,
+                image: "pendrive.png"
+            ),
+            ProductBox(
+                name: "Floppy Drive",
+                description: "Floppy drive is useful rescue storage medium",
+                price: 20,
+                image: "floppy.png"
             ),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        )
+    );
+  }
+}
+class ProductBox extends StatelessWidget {
+  ProductBox({Key? key, required this.name,required this.description,required this.price,required this.image})
+      : super(key: key);
+  final String name;
+  final String description;
+  final int price;
+  final String image;
+
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.all(2), height: 120,  child: Card(
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
+          Image.asset("assets/appimages/" +image), Expanded(
+              child: Container(
+                  padding: EdgeInsets.all(5), child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+
+                  Text(this.name, style: TextStyle(fontWeight:
+                  FontWeight.bold)), Text(this.description),
+                  Text("Price: " + this.price.toString()),
+                ],
+              )
+              )
+          )
+        ]
+        )
+    )
     );
   }
 }
